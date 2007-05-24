@@ -8,11 +8,18 @@
 MAIL = open(ARGV[0]).read
 @mail = Array.new
 @sig_found = nil
+@blank = false
 
 MAIL.each_line do |line|
   unless @sig_found
     if not line =~ /^>\s\s*(--(\s*|\w*)$|__)/
-      @mail << line
+      if line =~ /^>\s$/
+        @mail << line unless @blank
+        @blank = true
+      else
+        @mail << line
+        @blank = false
+      end
     else
       @sig_found = true
     end
