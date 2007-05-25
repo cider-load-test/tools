@@ -26,11 +26,9 @@ MAIL.each_line do |line|
   end
 end
 
-@mail << "\n"
-
 # Add signature file, if found
-if File.exists? ENV['HOME'] + '/.signature'
-  @mail << "--\n" + open(ENV['HOME'] + '/.signature').read
+if File.exists?(ENV['HOME'] + '/.signature') and not @mail.last == open(ENV['HOME'] + '/.signature').read
+  @mail << "\n--\n" + open(ENV['HOME'] + '/.signature').read
 end
 
 File.open(ARGV[0], 'w+') {|file| @mail.each {|line| file << line}}
