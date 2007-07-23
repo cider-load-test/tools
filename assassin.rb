@@ -9,7 +9,7 @@ MAIL = open(ARGV[0]).read
 @mail = Array.new
 
 MAIL.each_line do |line|
-  break if line =~ />\s(__|--)/
+  break if line =~ />\s(__|--)^(PGP)/
   @mail << line
 end
 
