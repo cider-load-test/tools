@@ -50,9 +50,7 @@ command_id = 0
 history_file = os.environ.get('HOME')+"/.rprhist"
 
 ## get our command history
-fhist = open(history_file, "a+")
-history = fhist.readlines()
-fhist.close()
+history = open(history_file, "a+").readlines()
 ## add a last blank command and reverse the list
 history.append("")
 history.reverse()
@@ -62,9 +60,7 @@ def history_add(program):
 	## the program is NOT in history
 	if (program+"\n") not in history:
 		history.append(program+"\n")
-		fhist = open(history_file, "w+")
-		fhist.writelines(history)
-		fhist.close()
+		open(history_file, "w+").writelines(history)
 	## the program IS in the history
 	else:
 		pass # Goggles -- Turn: Do nothing
