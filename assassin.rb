@@ -6,11 +6,11 @@
 #  Licensed under the MIT/X11 License. See LICENSE file for license details.
 
 MAIL = open(ARGV[0]).read
- at mail = Array.new
+@mail = Array.new
 
 MAIL.each_line do |line|
   break if line =~ />\s(__|--)^(PGP)/
-   at mail << line
+  @mail << line
 end
 
-File.open(ARGV[0], 'w+') {|file|  at mail.each {|line| file << line}}
+File.open(ARGV[0], 'w+') {|file| @mail.each {|line| file << line}}

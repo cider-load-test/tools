@@ -7,9 +7,9 @@
 #  Licensed under the MIT/X11 License. See LICENSE file for license details.
 
 pool = ("A".."Z").to_a + ("a".."z").to_a + (0..9).to_a + %w[# ! $ % & _ -]
- at password = ""
+@password = ""
 times = ARGV[0]||10
 
-times.to_i.times {  at password << pool[rand(pool.length - 1)].to_s }
+times.to_i.times { @password << pool[rand(pool.length - 1)].to_s }
 
-puts  at password
+puts @password
