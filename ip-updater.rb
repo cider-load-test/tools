@@ -2,7 +2,7 @@
 #
 #  EveryDNS and FreeDNS updater
 #
-#  Created by Ricardo Martins <meqif@scarybox.net>
+#  Created by Ricardo Martins <ricardo at scarybox dot net>
 #  Copyright (c) 2007. Licensed under the MIT/X11 license.
 
 %w[open-uri net/http uri base64].each {|x| require x}

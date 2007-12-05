@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 #
-#  (C)opyright 2007 Ricardo Martins <meqif at scarybox dot net>
+#  (C)opyright 2007 Ricardo Martins <ricardo at scarybox dot net>
 #  Licensed under the MIT/X11 License. See LICENSE file for license details.
 
 class Sieve
@@ -20,13 +20,4 @@ class Sieve
     return primes
   end
 
-  def self.Eratosthenes2(max)
-    primes = Array.new
-    (2..max).to_a.reverse.each do |number|
-      primes.each do |p|
-        primes << number unless number%p == 0
-      end
-    end
-    return primes
-  end
 end
