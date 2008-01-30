@@ -32,9 +32,6 @@ def history_add(program):
   if (program+"\n") not in history:
     history.append(program+"\n")
     open(history_file, "w+").writelines(history)
-  # the program IS in the history
-  else:
-    pass # Goggles -- Turn: Do nothing
 
 # go back in history
 def history_back():
@@ -42,8 +39,6 @@ def history_back():
   if command_id < len(history)-1:
     command_id += 1
     entry.set_text(history[command_id].strip("\n"))
-  else:
-    pass # there's no older command in history
   
 # advance in history
 def history_next():
@@ -53,8 +48,6 @@ def history_next():
     # here we set the entry text to the next command. stripping "\n"
     # is necessary, otherwise the selected program won't run
     entry.set_text(history[command_id].strip("\n"))
-  else:
-    pass # there's no newer command in history
 
 # Properties of the window
 window = gtk.Window()
@@ -68,8 +61,7 @@ def on_entry_activated(entry):
   program = entry.get_text()
   if program != "":
     history_add(program)
-    #os.spawnlp(os.P_NOWAIT, program)
-    # Ugly hack here. There must be a cleaner way to do this.
+    # FIXME: Ugly hack here. There must be a cleaner way to do this.
     os.execlp(program, ">/dev/null 2>&1 &")
   gtk.main_quit()
 
