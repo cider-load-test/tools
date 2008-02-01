@@ -8,7 +8,6 @@ module Main where
 
 import System (getArgs)
 import Text.Regex.Posix
-import Text.Regex.Base
 import System.IO
 
 myFilter :: String -> Bool
@@ -25,6 +24,7 @@ mangle (x:xs) =
     else
         x : mangle xs
 
+hGetContentsStrict :: Handle -> IO String
 hGetContentsStrict h = do
     b <- hIsEOF h
     if b then return [] else do
@@ -32,6 +32,7 @@ hGetContentsStrict h = do
         r <- hGetContentsStrict h
         return (c:r)
 
+readFileStrict :: FilePath -> IO String
 readFileStrict fn = do
     hdl <- openFile fn ReadMode
     xs <- hGetContentsStrict hdl
