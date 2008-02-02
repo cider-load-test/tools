@@ -8,7 +8,7 @@ module Main where
 
 import System (getArgs)
 import Text.Regex.Posix
-import System.IO
+import StrictIO
 
 myFilter :: String -> Bool
 myFilter x = not (x =~ ">" :: Bool)
@@ -24,21 +24,7 @@ mangle (x:xs) =
     else
         x : mangle xs
 
-hGetContentsStrict :: Handle -> IO String
-hGetContentsStrict h = do
-    b <- hIsEOF h
-    if b then return [] else do
-        c <- hGetChar h
-        r <- hGetContentsStrict h
-        return (c:r)
-
-readFileStrict :: FilePath -> IO String
-readFileStrict fn = do
-    hdl <- openFile fn ReadMode
-    xs <- hGetContentsStrict hdl
-    hClose hdl
-    return xs
-
+main :: IO ()
 main = do
     [file] <- getArgs
     email  <- readFileStrict file
