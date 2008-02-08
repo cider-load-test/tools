@@ -11,7 +11,7 @@ import Text.Regex.Posix
 import StrictIO
 
 myFilter :: String -> Bool
-myFilter x = not (x =~ ">" :: Bool)
+myFilter x = not (x =~ "^>" :: Bool)
 
 -- strip the email message from those stupid signatures
 mangle :: [String] -> [String]
@@ -24,8 +24,16 @@ mangle (x:xs) =
     else
         x : mangle xs
 
+-- removes duplicate adjacent elements
+uniq :: (Eq a) => [a] -> [a]
+uniq [] = []
+uniq (x:y:z) =
+    if (x == y) then uniq (y:z)
+    else x : uniq (y : z)
+uniq x = x
+
 main :: IO ()
 main = do
     [file] <- getArgs
     email  <- readFileStrict file
-    writeFile file $ unlines $ mangle $ lines email
+    writeFile file $ unlines $ uniq $ mangle $ lines email
