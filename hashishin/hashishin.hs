@@ -18,7 +18,7 @@ mangle :: [String] -> [String]
 mangle []     = []
 mangle (x:xs) =
     -- when/if a signature is found
-    if (x =~ "> (--|__)" :: Bool)
+    if (x =~ "^> (--|__)" :: Bool)
         -- filter quoted lines (that is, lines starting with ">")
         then filter (myFilter) xs
     else
