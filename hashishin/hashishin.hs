@@ -29,8 +29,16 @@ uniq (x:y:z) =
     if (x == y) then uniq (y:z)
     else x : uniq (y : z)
 
+-- removes trailing quotes after removing signatures
+rmt :: [String] -> [String]
+rmt [] = []
+rmt [x] = [x]
+rmt (x:y:z) =
+    if (x =~ "^>( )?$" :: Bool) && (y == "") then y:z
+    else x : rmt (y:z)
+
 main :: IO ()
 main = do
     [file] <- getArgs
     email  <- readFileStrict file
-    writeFile file $ unlines $ uniq $ mangle $ lines email
+    writeFile file $ unlines $ rmt $ uniq $ mangle $ lines email

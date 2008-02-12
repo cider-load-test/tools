@@ -19,6 +19,6 @@ hGetContentsStrict h = do
 readFileStrict :: FilePath -> IO String
 readFileStrict fn = do
     hdl <- openFile fn ReadMode
-    xs <- hGetContentsStrict hdl
+    xs  <- hGetContentsStrict hdl
     hClose hdl
     return xs
