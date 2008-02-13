@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #
-#  (C)opyright 2007 Ricardo Martins <ricardo at scarybox dot net>
-#  Licensed under the MIT/X11 License. See LICENSE file for license details.
+# (C)opyright 2007 Ricardo Martins <ricardo at scarybox dot net>
+# Licensed under the MIT/X11 License. See LICENSE file for license details.
 
 class Sieve
 
