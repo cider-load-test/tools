@@ -1,1 +1,4 @@
 .hg*
+*.o
+*.hi
+hashishin/hashishin

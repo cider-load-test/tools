@@ -32,17 +32,20 @@ class MyTMN
   end
 end
 
-username = ARGV[0]
-password = ARGV[1]
-target   = ARGV[2]
-message  = ARGV[3..-1].join(" ")
-
-if not (username.empty? and password.empty? and target.empty? and message.empty?)
-  mytmn = MyTMN.new(username, password)
-  mytmn.send(target, message)
-  puts "Mensagem enviada"
+if ARGV.length != 0
+  username = ARGV[0]
+  password = ARGV[1]
+  target   = ARGV[2]
+  message  = ARGV[3..-1].join(" ")
 else
-  puts "Dados incompletos"
+  puts "Username: "; username = gets
+  puts "Password: "; password = gets
+  puts "Target:   "; target   = gets
+  puts "Message:  "; message  = gets
 end
+
+mytmn = MyTMN.new(username, password)
+mytmn.send(target, message)
+puts "Message sent"
 
 # vim: et ts=2 sw=2 sts=2
