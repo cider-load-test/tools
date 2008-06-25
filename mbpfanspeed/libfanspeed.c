@@ -1,11 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include "fanspeed.h"
-
-#define NOTROOT 1
 
 /* Set the fan speed (in RPM) */
 void setspeed(int fanspeed) {
@@ -14,6 +10,8 @@ void setspeed(int fanspeed) {
 
     if (fanspeed > 6000)
         fanspeed = 6000;
+    else if (fanspeed < 2000)
+        fanspeed = 2000;
 
     fprintf(left,  "%d", fanspeed);
     fprintf(right, "%d", fanspeed);
@@ -26,8 +24,8 @@ void setspeed(int fanspeed) {
 int getspeed(char *fan) {
     /* Since both fans are spinning at the same speed almost all of the time,
      * only one is checked */
-    FILE *left = fopen(fan, "r");
     int fanspeed = 0;
+    FILE *left = fopen(fan, "r");
     fscanf(left, "%4d", &fanspeed);
     fclose(left);
     return fanspeed;
