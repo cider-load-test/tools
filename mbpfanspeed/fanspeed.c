@@ -1,4 +1,9 @@
-/* See LICENSE file for copyright and license details. */
+/* See LICENSE file for copyright and license details.
+ *
+ * fanspeed - MacbookPro fan speed manual regulator
+ *
+ * Compile with gcc -o fanspeed fanspeed.c -lfanspeed
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
