@@ -1,0 +1,17 @@
+"""
+Set the environment.
+"""
+env = Environment(CFLAGS="-Os -Wall")
+
+"""
+Build the library.
+"""
+env.Library('fanspeed', ['libfanspeed.c'])
+
+"""
+Build both programs.
+"""
+env.Program('fanspeed',  ['fanspeed.c'],  LIBS=['fanspeed'], LIBPATH='.')
+env.Program('autospeed', ['autospeed.c'], LIBS=['fanspeed'], LIBPATH='.')
+
+# vim: filetype=python
