@@ -4,7 +4,7 @@
 #include "fanspeed.h"
 
 /* Set the fan speed (in RPM) */
-void setspeed(int fanspeed) {
+void setspeed(unsigned int fanspeed) {
     FILE *left  = fopen(LEFT_FAN,  "w");
     FILE *right = fopen(RIGHT_FAN, "w");
 
@@ -21,8 +21,8 @@ void setspeed(int fanspeed) {
 }
 
 /* Get the fan speed */
-int getspeed(char *fan) {
-    int fanspeed = 0;
+unsigned int getspeed(char *fan) {
+    unsigned int fanspeed = 0;
     FILE *fd = fopen(fan, "r");
     fscanf(fd, "%4d", &fanspeed);
     fclose(fd);
