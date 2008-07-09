@@ -5,6 +5,7 @@
  * Compile with gcc -o autospeed autospeed.c -lfanspeed
  */
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -22,6 +23,12 @@ int main() {
 
     while (1) {
         tempfile = fopen(CPU_TMP, "r");
+
+        if (errno) {
+            perror("");
+            exit(EXIT_FAILURE);
+        }
+
         fscanf(tempfile, "%5d", &temp);
         fclose(tempfile);
         speed = getspeed(LEFT_FAN);
