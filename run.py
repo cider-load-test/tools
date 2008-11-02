@@ -95,8 +95,13 @@ class RunPy:
         program = entry.get_text()
         if len(program) > 0:
             self.history_add(program)
-            # FIXME: Ugly hack here.
-            os.execlp(program, ">/dev/null 2>&1 &")
+            argv = program.split()
+            pid = os.fork()
+            if pid:                 # Parent
+                os.waitpid(pid, os.WNOHANG)
+            else:                   # Child
+                os.execvp(argv[0], argv)
+                exit(1) # If child reached this, we're screwed
         gtk.main_quit()
 
     def key_press_impl(self, win, event):
