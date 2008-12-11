@@ -24,25 +24,25 @@ int main() {
     while (1) {
         tempfile = fopen(CPU_TMP, "r");
 
-        if (errno) {
+        if (errno)
             perror("");
-            exit(EXIT_FAILURE);
-        }
+        else {
+            fscanf(tempfile, "%5d", &temp);
+            fclose(tempfile);
+            speed = getspeed(LEFT_FAN);
 
-        fscanf(tempfile, "%5d", &temp);
-        fclose(tempfile);
-        speed = getspeed(LEFT_FAN);
+            if (temp >= 48000 && speed < 6000 && counter%4 == 0) {
+                speed += 1000;
+                setspeed(speed);
+                setspeed(speed); // Setting the speed twice to ensure it changes
+            }
 
-        if (temp >= 48000 && speed < 6000 && counter%4 == 0) {
-            speed += 1000;
-            setspeed(speed);
-            setspeed(speed); // Setting the speed twice to ensure it changes
-        }
+            else if (temp <= 42000 && speed > 2000) {
+                speed -= 1000;
+                setspeed(speed);
+                setspeed(speed); // Setting the speed twice to ensure it changes
+            }
 
-        else if (temp <= 42000 && speed > 2000) {
-            speed -= 1000;
-            setspeed(speed);
-            setspeed(speed); // Setting the speed twice to ensure it changes
         }
 
         counter++;

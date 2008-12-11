@@ -10,9 +10,9 @@ void setspeed(unsigned int fanspeed) {
     FILE *left  = fopen(LEFT_FAN,  "w");
     FILE *right = fopen(RIGHT_FAN, "w");
 
-    if (errno) {
+    if (left == NULL || right == NULL) {
         perror("");
-        exit(EXIT_FAILURE);
+        return;
     }
 
     if (fanspeed > 6000)
@@ -32,9 +32,9 @@ unsigned int getspeed(char *fan) {
     unsigned int fanspeed = 0;
     FILE *fd = fopen(fan, "r");
 
-    if (errno) {
+    if (fd == NULL) {
         perror("");
-        exit(EXIT_FAILURE);
+        return -1;
     }
 
     fscanf(fd, "%4d", &fanspeed);
