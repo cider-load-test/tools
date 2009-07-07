@@ -13,12 +13,7 @@
 require 'date'
 
 def getCRC32(filename)
-    if filename.split(' ').length > 1
-        tmp = filename.split(' ')
-    else
-        tmp = filename.split('_')
-    end
-    tmp.last.split('.').first.split('')[1..-2].join('')
+    filename.match(/\[([a-zA-Z0-9]{8})\]/).captures.last
 end
 
 def header
