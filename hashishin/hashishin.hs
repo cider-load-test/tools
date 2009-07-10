@@ -9,6 +9,7 @@ module Main where
 import System (getArgs)
 import Text.Regex.Posix
 import StrictIO
+import Test.QuickCheck
 
 -- strip the email message from those stupid signatures
 mangle :: [String] -> [String]
@@ -22,12 +23,14 @@ mangle (x:xs) =
         x : mangle xs
 
 -- removes duplicate adjacent elements
-uniq :: (Eq a) => [a] -> [a]
-uniq [] = []
-uniq [x] = [x]
-uniq (x:y:z) =
-    if (x == y) then uniq (y:z)
-    else x : uniq (y : z)
+uniq_adj :: (Eq a) => [a] -> [a]
+uniq_adj [] = []
+uniq_adj [x] = [x]
+uniq_adj (x:y:z) =
+    if (x == y) then uniq_adj (y:z)
+    else x : uniq_adj (y : z)
+
+prop_uniq_adj xs = length (uniq_adj xs) <= length xs
 
 -- removes trailing quotes after removing signatures
 rmt :: [String] -> [String]
@@ -37,8 +40,10 @@ rmt (x:y:z) =
     if (x =~ "^>( )?$" :: Bool) && (y == "") then y:z
     else x : rmt (y:z)
 
+prop_rmt xs = length (rmt xs) <= length xs
+
 main :: IO ()
 main = do
     [file] <- getArgs
     email  <- readFileStrict file
-    writeFile file $ unlines $ rmt $ uniq $ mangle $ lines email
+    writeFile file $ unlines $ rmt $ uniq_adj $ mangle $ lines email
